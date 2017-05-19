@@ -467,7 +467,7 @@ class MultichainClient
      */
     public function grant($addresses, $permissions, $nativeAmount = 0, $comment = '', $commentTo = '', $startBlock = 0, $endBlock = null)
     {
-        return $this->jsonRPCClient->execute("grant", array($addresses, $permissions, $nativeAmount, $comment, $commentTo, $startBlock, $endBlock));
+        return $this->jsonRPCClient->execute("grant", array($addresses, $permissions, $nativeAmount, $startBlock, $endBlock, $comment, $commentTo));
     }
 
     /**
@@ -486,7 +486,7 @@ class MultichainClient
      */
     public function grantFrom($fromAddress, $toAddresses, $permissions, $nativeAmount = 0, $comment = '', $commentTo = '', $startBlock = 0, $endBlock = null)
     {
-        return $this->jsonRPCClient->execute("grantfrom", array($fromAddress, $toAddresses, $permissions, $nativeAmount, $comment, $commentTo, $startBlock, $endBlock));
+        return $this->jsonRPCClient->execute("grantfrom", array($fromAddress, $toAddresses, $permissions, $nativeAmount, $startBlock, $endBlock, $comment, $commentTo));
     }
 
     /**
