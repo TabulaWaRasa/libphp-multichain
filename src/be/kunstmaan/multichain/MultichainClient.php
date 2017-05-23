@@ -893,6 +893,12 @@ class MultichainClient
         return $this->jsonRPCClient->execute("sendrawtransaction", array($hex, $allowHighFees));
     }
 
+    /************
+    *           *
+    *  STREAMS  *
+    *           *
+    ************/
+    
     public function createStream($name, $open = false, $custom = null)
     {
         $type = "stream";
@@ -917,10 +923,9 @@ class MultichainClient
         return $this->jsonRPCClient->execute("publish", array($stream, $key, $data));
     }
 
-    //Not Working??
     public function getStreamItem($stream, $txid, $verbose=false)
     {
-        return $this->jsonRPCClient->execute("getstreamitem", array("random_stream", "590ccedf991952be4a349a71f2f9ab81151f81610b884278416b2bcd6855540e", false));
+        return $this->jsonRPCClient->execute("getstreamitem", array($stream, $txid, false));
     }
 
     public function listStreamItems($stream)
