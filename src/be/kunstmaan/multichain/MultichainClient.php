@@ -467,7 +467,7 @@ class MultichainClient
      */
     public function grant($addresses, $permissions, $nativeAmount = 0, $comment = '', $commentTo = '', $startBlock = 0, $endBlock = null)
     {
-        return $this->jsonRPCClient->execute("grant", array($addresses, $permissions, $nativeAmount, $startBlock, $endBlock, $comment, $commentTo));
+        return $this->jsonRPCClient->execute("grant", array($addresses, $permissions, $nativeAmount, $comment, $commentTo, $startBlock, $endBlock));
     }
 
     /**
@@ -487,6 +487,8 @@ class MultichainClient
     public function grantFrom($fromAddress, $toAddresses, $permissions, $nativeAmount = 0, $comment = '', $commentTo = '', $startBlock = 0, $endBlock = null)
     {
         return $this->jsonRPCClient->execute("grantfrom", array($fromAddress, $toAddresses, $permissions, $nativeAmount, $startBlock, $endBlock, $comment, $commentTo));
+
+        //return $this->jsonRPCClient->execute("grantfrom", array($fromAddress, $toAddresses, $permissions));
     }
 
     /**
@@ -889,5 +891,40 @@ class MultichainClient
     public function sendRawTransaction($hex, $allowHighFees = false)
     {
         return $this->jsonRPCClient->execute("sendrawtransaction", array($hex, $allowHighFees));
+    }
+
+    public function createStream($name, $open = false, $custom = null)
+    {
+        $type = "stream";
+        return $this->jsonRPCClient->execute("create", array("stream" , $name, $open));
+    }
+
+    public function listStreams()
+    {
+        return $this->jsonRPCClient->execute("liststreams", array());
+    }
+
+    /**
+    * @param $stream = stream name, ref or creation txid. Can also be array of items
+    */
+    public function subscribe($stream, $rescan = true)
+    {
+        return $this->jsonRPCClient->execute("random_stream", array($stream, $rescan));
+    }
+
+    public function publish($stream, $key, $data)
+    {   
+        return $this->jsonRPCClient->execute("publish", array($stream, $key, $data));
+    }
+
+    //Not Working??
+    public function getStreamItem($stream, $txid, $verbose=false)
+    {
+        return $this->jsonRPCClient->execute("getstreamitem", array("random_stream", "590ccedf991952be4a349a71f2f9ab81151f81610b884278416b2bcd6855540e", false));
+    }
+
+    public function listStreamItems($stream)
+    {
+        return $this->jsonRPCClient->execute("liststreamitems", array($stream));
     }
 }
